@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Laser.gd" type="Script" id=1]
+[ext_resource path="res://dodge_assets/art/laser2.png" type="Texture" id=2]
+[ext_resource path="res://dodge_assets/art/laser1.png" type="Texture" id=3]
+[ext_resource path="res://dodge_assets/art/laser3.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 6.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 7.11162
+height = 15.3051
+
+[node name="Laser" type="RigidBody2D"]
+position = Vector2( 48.7904, 20.3293 )
+gravity_scale = 0.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 1 )
+frame = 2
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 18, 0.5 )
+rotation = 1.5708
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
