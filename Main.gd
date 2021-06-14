@@ -28,7 +28,6 @@ func new_game():
 	$StartTimer.start()
 	$HUD.update_score(score)
 	$HUD.show_message("Get Ready")
-	$Music.play()
 
 func _on_ScoreTimer_timeout():
 	score += 1
@@ -37,6 +36,7 @@ func _on_ScoreTimer_timeout():
 func _on_StartTimer_timeout():
 	$EnemyTimer.start()
 	$ScoreTimer.start()
+	#$Music.play()
 
 func _on_EnemyTimer_timeout():
 	$EnemyPath/EnemySpawnLocation.offset = randi()  # choose a random location on Path2D (EnemyPath)
@@ -55,4 +55,7 @@ func _on_EnemyTimer_timeout():
 func new_player_settings(options):
 	if options.has("color"):
 		$Background.color = options["color"]
+	if options.has("speed"):
+		# update laser speed
+		pass
 	

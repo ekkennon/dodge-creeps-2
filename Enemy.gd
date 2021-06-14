@@ -1,5 +1,6 @@
 extends RigidBody2D
 
+# TODO: keep enemies still on the edge, fire 1 laser, then remove
 
 # Declare member variables here. Examples:
 # var a = 2

@@ -1,5 +1,6 @@
 extends RigidBody2D
 
+# TODO: set this up similar to the enemy scene in version 1
 
 # Declare member variables here. Examples:
 # var a = 2

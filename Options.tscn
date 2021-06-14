@@ -1,7 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Options.gd" type="Script" id=1]
 [ext_resource path="res://dodge_assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=2]
+size = 58
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 28
+font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 55
@@ -10,17 +18,85 @@ font_data = ExtResource( 2 )
 [node name="Options" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="SubtitlesOpt" type="CheckBox" parent="."]
+[node name="SpeedLabel" type="Label" parent="."]
 visible = false
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -390.0
-margin_bottom = 75.0
-custom_fonts/font = SubResource( 1 )
-pressed = true
-text = "Subtitles On"
-align = 1
+margin_left = 12.0
+margin_right = 472.0
+margin_bottom = 70.0
+custom_fonts/font = SubResource( 2 )
+text = "Change Speed:"
 __meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedOpt" type="HSlider" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -203.0
+margin_top = -278.0
+margin_right = -103.0
+margin_bottom = -262.0
+rect_scale = Vector2( 4, 5 )
+hint_tooltip = "Slow, Standard, or Fast"
+max_value = 2.0
+value = 1.0
+tick_count = 3
+ticks_on_borders = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedSlow" type="Button" parent="."]
+anchor_top = -0.000926971
+anchor_bottom = -0.000926971
+margin_left = 16.0
+margin_top = 162.667
+margin_right = 99.0
+margin_bottom = 203.667
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Slow"
+flat = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedMid" type="Button" parent="."]
+visible = false
+anchor_top = -0.000926971
+anchor_bottom = -0.000926971
+margin_left = 156.0
+margin_top = 162.667
+margin_right = 303.0
+margin_bottom = 203.667
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Standard"
+flat = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedFast" type="Button" parent="."]
+visible = false
+anchor_top = -0.000926971
+anchor_bottom = -0.000926971
+margin_left = 360.0
+margin_top = 162.667
+margin_right = 443.0
+margin_bottom = 203.667
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Fast"
+flat = true
+__meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -30,10 +106,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -203.0
-margin_top = -103.5
-margin_right = 203.0
-margin_bottom = 103.5
+margin_left = -200.0
+margin_top = -102.5
+margin_right = 206.0
+margin_bottom = 104.5
 custom_fonts/font = SubResource( 1 )
 text = "Change Background Color:"
 autowrap = true
@@ -69,6 +145,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="toggled" from="SubtitlesOpt" to="." method="_on_CheckBox_toggled"]
+[connection signal="changed" from="SpeedOpt" to="." method="_on_SpeedOpt_changed"]
+[connection signal="pressed" from="SpeedSlow" to="." method="_on_SpeedSlow_pressed"]
+[connection signal="pressed" from="SpeedMid" to="." method="_on_SpeedMid_pressed"]
+[connection signal="pressed" from="SpeedFast" to="." method="_on_SpeedFast_pressed"]
 [connection signal="color_changed" from="BackPick" to="." method="_on_ColorPickerButton_color_changed"]
 [connection signal="pressed" from="Save" to="." method="_on_Save_pressed"]

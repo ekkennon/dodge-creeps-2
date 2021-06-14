@@ -1,5 +1,8 @@
 extends CanvasLayer
 
+# TODO: add health bar starting at 10 health
+# TODO: health decreases by 1 with each hit by enemy laser
+
 signal start_game
 signal show_options
 signal options_changed(options)
@@ -8,14 +11,12 @@ signal options_changed(options)
 # var a = 2
 # var b = "text"
 var options = {}
-var subtitles_on
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Options/BackPick.hide()
 	$Options/BackPickLabel.hide()
 	$Options/Save.hide()
-	$Options/SubtitlesOpt.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -28,8 +29,6 @@ func show_message(text):
 
 func show_game_over():
 	var end_msg = "Game Over"
-	if !subtitles_on == false:
-		end_msg = "[death sound]\nGame Over"
 	
 	show_message(end_msg)
 	yield($MessageTimer, "timeout")  # wait until the MessageTimer has counted down
@@ -39,6 +38,7 @@ func show_game_over():
 	yield(get_tree().create_timer(1), "timeout")
 	$StartButton.show()
 	$OptionsBtn.show()
+	$InstructionsBtn.show()
 
 func update_score(score):
 	$ScoreLabel.text = str(score)
@@ -49,6 +49,7 @@ func _on_MessageTimer_timeout():
 func _on_StartButton_pressed():
 	$StartButton.hide()
 	$OptionsBtn.hide()
+	$InstructionsBtn.hide()
 	emit_signal("start_game")
 
 func _on_Options_pressed():
@@ -56,22 +57,39 @@ func _on_Options_pressed():
 	$OptionsBtn.hide()
 	$Message.hide()
 	$ScoreLabel.hide()
-	$Options/SubtitlesOpt.show()
+	$InstructionsBtn.hide()
 	$Options/BackPickLabel.show()
 	$Options/BackPick.show()
 	$Options/Save.show()
+	$Options/SpeedOpt.show()
+	$Options/SpeedLabel.show()
+	$Options/SpeedMid.show()
+	$Options/SpeedSlow.show()
+	$Options/SpeedFast.show()
 
 func opt_changed_color(color):
 	options["color"] = color
 	
-func opt_changed_subtitles(sub_state):
-	subtitles_on = sub_state
-
 func return_to_game():
 	$Message.show()
 	$ScoreLabel.show()
 	$StartButton.show()
 	$OptionsBtn.show()
+	$InstructionsBtn.show()
 	
-	if !options.empty():
+	if options.has("color"):
 		emit_signal("options_changed", options)
+	if options.has("speed"):
+		emit_signal("options_changed", options)
+
+func _on_InstructionsBtn_pressed():
+	$StartButton.hide()
+	$OptionsBtn.hide()
+	$Message.hide()
+	$ScoreLabel.hide()
+	$InstructionsBtn.hide()
+	$Instructions/RichTextLabel.show()
+	$Instructions/Return.show()
+
+func opt_changed_speed(speed):
+	options["speed"] = speed
